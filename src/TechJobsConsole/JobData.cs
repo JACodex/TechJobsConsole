@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System;
 
 namespace TechJobsConsole
 {
@@ -9,6 +10,7 @@ namespace TechJobsConsole
     {
         static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
         static bool IsDataLoaded = false;
+        static List<string> columnKeys = new List<string>();
 
         public static List<Dictionary<string, string>> FindAll()
         {
@@ -138,5 +140,41 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+        public static void loadColumnKeys()
+        {
+            for (int i = 0; i < AllJobs.Count; i++)
+            {
+                foreach (KeyValuePair<string, string> key in AllJobs[i])
+                {
+                    if (!columnKeys.Contains(key.Key))
+                    {
+                        columnKeys.Add(key.Key);
+                    }
+                }
+            }
+        }
+        public static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            LoadData();
+            loadColumnKeys();
+            List<Dictionary<string, string>> columnSearchResults = new List<Dictionary<string, string>>();
+            Console.WriteLine($" SEARCH TERM RESULTS: {searchTerm}");
+
+            foreach (Dictionary<string, string> columnItem in AllJobs)
+            {
+                for(int i = 0; i < columnKeys.Count; i++)
+                {
+                    if (columnItem[columnKeys[i]].ToLower().Contains(searchTerm.ToLower()))
+                    {
+                        columnSearchResults.Add(columnItem);
+                    }
+                }
+
+                //columnSearchResults.Add(columnItem);
+            }
+            return columnSearchResults;
+        }
     }
+
+ 
 }
