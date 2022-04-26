@@ -124,7 +124,7 @@ namespace TechJobsConsole
             if(someJobs.Count == 0)
             {
                 Console.WriteLine("No Results Found");
-                throw new Exception("Error: No Results Found");
+                //throw new Exception("Error: No Results Found");
                 return;
             }
             //Console.WriteLine("PrintJobs is not implemented yet");
