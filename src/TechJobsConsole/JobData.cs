@@ -167,6 +167,7 @@ namespace TechJobsConsole
                     if (columnItem[columnKeys[i]].ToLower().Contains(searchTerm.ToLower()))
                     {
                         columnSearchResults.Add(columnItem);
+                        break;
                     }
                 }
 
